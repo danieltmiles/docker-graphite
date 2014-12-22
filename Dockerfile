@@ -12,9 +12,10 @@ RUN pip install whisper \
     'twisted<12.0' \
     carbon \
     gunicorn \
+    gunicorn-websocket \
+    django-gunicorn \
+    uwsgi \
     graphite-web
-
-
 
 #Nginx config
 ADD ext/conf/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -23,10 +24,11 @@ ADD ext/conf/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD ext/conf/supervisord/supervisord.conf /etc/supervisord.conf
 
 #Graphite config
-#initial_data.json
+ADD ext/conf/graphite/initial_data.json /opt/graphite/webapp/graphite/
 ADD ext/scripts/local_settings.py /opt/graphite/webapp/graphite/
 ADD ext/conf/graphite/carbon.conf /opt/graphite/conf/carbon.conf
 ADD ext/conf/graphite/storage-schemas.conf /opt/graphite/conf/storage-schemas.conf
+RUN cp /opt/graphite/conf/graphite.wsgi.example /opt/graphite/conf/graphite.wsgi
 RUN mkdir -p /opt/graphite/storage/whisper
 RUN chown -R nginx /opt/graphite/storage
 RUN chmod 0775 /opt/graphite/storage /opt/graphite/storage/whisper
