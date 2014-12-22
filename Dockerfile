@@ -7,7 +7,6 @@ RUN yum install -y epel-release && \
     yum upgrade -y && \
     yum install -y bitmap bitmap-fonts gcc memcached nginx pycairo pyOpenSSL python-devel python-django python-django-tagging python-gunicorn python-memcached python-pip python-simplejson python-sqlite2 supervisor && \
     yum clean all
-    #python-twisted-web
 
 RUN pip install whisper \
     'twisted<12.0' \
