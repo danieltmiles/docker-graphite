@@ -28,11 +28,11 @@ ADD ext/conf/graphite/initial_data.json /opt/graphite/webapp/graphite/
 ADD ext/scripts/local_settings.py /opt/graphite/webapp/graphite/
 ADD ext/conf/graphite/carbon.conf /opt/graphite/conf/carbon.conf
 ADD ext/conf/graphite/storage-schemas.conf /opt/graphite/conf/storage-schemas.conf
-RUN cp /opt/graphite/conf/graphite.wsgi.example /opt/graphite/conf/graphite.wsgi
-RUN mkdir -p /opt/graphite/storage/whisper
+ADD ext/conf/graphite/graphite.wsgi /opt/graphite/conf/graphite.wsgi
+RUN mkdir -p /opt/graphite/storage/whisper /var/log/graphite
+RUN touch /opt/graphite/storage/graphite.db /opt/graphite/storage/index /var/log/graphite/info.log /var/log/graphite/exception.log /var/log/graphite/access.log /var/log/graphite/error.log
 RUN chown -R nginx /opt/graphite/storage
 RUN chmod 0775 /opt/graphite/storage /opt/graphite/storage/whisper
-RUN touch /opt/graphite/storage/graphite.db /opt/graphite/storage/index
 RUN chmod 0664 /opt/graphite/storage/graphite.db
 RUN python /opt/graphite/webapp/graphite/manage.py syncdb --noinput
 
