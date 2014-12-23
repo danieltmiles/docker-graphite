@@ -33,6 +33,4 @@ RUN python /opt/graphite/webapp/graphite/manage.py syncdb --noinput
 
 VOLUME /opt/graphite/storage/whisper
 
-RUN yum -y install vim
-
 ENTRYPOINT ["/usr/bin/supervisord"]
