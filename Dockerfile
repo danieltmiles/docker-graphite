@@ -11,10 +11,7 @@ RUN yum install -y epel-release && \
 RUN pip install whisper \
     'twisted<12.0' \
     carbon \
-    gunicorn \
-    gunicorn-websocket \
     django-gunicorn \
-    uwsgi \
     graphite-web
 
 #Nginx config
@@ -28,7 +25,6 @@ ADD ext/conf/graphite/initial_data.json /opt/graphite/webapp/graphite/
 ADD ext/scripts/local_settings.py /opt/graphite/webapp/graphite/
 ADD ext/conf/graphite/carbon.conf /opt/graphite/conf/carbon.conf
 ADD ext/conf/graphite/storage-schemas.conf /opt/graphite/conf/storage-schemas.conf
-ADD ext/conf/graphite/graphite.wsgi /opt/graphite/conf/graphite.wsgi
 RUN mkdir -p /opt/graphite/storage/whisper /var/log/graphite
 RUN touch /opt/graphite/storage/graphite.db /opt/graphite/storage/index /var/log/graphite/info.log /var/log/graphite/exception.log /var/log/graphite/access.log /var/log/graphite/error.log
 RUN chown -R nginx /opt/graphite/storage
@@ -39,5 +35,6 @@ RUN python /opt/graphite/webapp/graphite/manage.py syncdb --noinput
 VOLUME /var/log/supervisor
 VOLUME /var/log/nginx
 
+RUN yum -y install vim
+
 ENTRYPOINT ["/usr/bin/supervisord"]
-#ENTRYPOINT ["/bin/bash"]
