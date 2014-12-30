@@ -20,13 +20,15 @@ RUN pip install whisper \
 ADD ext/supervisord/supervisord.conf /etc/supervisord.conf
 
 #Graphite config
-ADD ext/graphite/webapp/* /opt/graphite/webapp/graphite/
-ADD ext/graphite/conf/* /opt/graphite/conf/
+ADD ext/graphite/webapp/ /opt/graphite/webapp/graphite/
+ADD ext/graphite/conf/ /opt/graphite/conf/
 RUN mkdir -p /opt/graphite/storage/whisper /var/log/graphite
 RUN touch /opt/graphite/storage/graphite.db /opt/graphite/storage/index /var/log/graphite/info.log /var/log/graphite/exception.log /var/log/graphite/access.log /var/log/graphite/error.log
 RUN chmod 0775 /opt/graphite/storage /opt/graphite/storage/whisper
 RUN chmod 0664 /opt/graphite/storage/graphite.db
-RUN python /opt/graphite/webapp/graphite/manage.py syncdb --noinput
+WORKDIR /opt/graphite/webapp/graphite
+RUN python manage.py syncdb --noinput
+WORKDIR /
 
 VOLUME /opt/graphite/storage/whisper
 
