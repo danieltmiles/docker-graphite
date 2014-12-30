@@ -17,14 +17,11 @@ RUN pip install whisper \
     graphite-web
 
 #Supervisord config
-ADD ext/conf/supervisord/supervisord.conf /etc/supervisord.conf
+ADD ext/supervisord/supervisord.conf /etc/supervisord.conf
 
 #Graphite config
-ADD ext/conf/graphite/initial_data.json /opt/graphite/webapp/graphite/
-ADD ext/scripts/local_settings.py /opt/graphite/webapp/graphite/
-ADD ext/conf/graphite/carbon.conf /opt/graphite/conf/carbon.conf
-ADD ext/conf/graphite/graphite.wsgi /opt/graphite/conf/graphite.wsgi
-ADD ext/conf/graphite/storage-schemas.conf /opt/graphite/conf/storage-schemas.conf
+ADD ext/graphite/webapp/* /opt/graphite/webapp/graphite/
+ADD ext/graphite/conf/* /opt/graphite/conf/
 RUN mkdir -p /opt/graphite/storage/whisper /var/log/graphite
 RUN touch /opt/graphite/storage/graphite.db /opt/graphite/storage/index /var/log/graphite/info.log /var/log/graphite/exception.log /var/log/graphite/access.log /var/log/graphite/error.log
 RUN chmod 0775 /opt/graphite/storage /opt/graphite/storage/whisper
