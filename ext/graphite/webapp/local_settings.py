@@ -41,25 +41,6 @@ LOG_DIR = '/var/log/graphite'
 
 
 # Database Configuration #
-##########################
-# By default sqlite is used. If you cluster multiple webapps you will need
-# to setup an external database (such as MySQL) and configure all of the webapp
-# instances to use the same database. Note that this database is only used to store
-# Django models such as saved graphs, dashboards, user preferences, etc.
-# Metric data is not stored here.
-#
-# DO NOT FORGET TO RUN 'manage.py syncdb' AFTER SETTING UP A NEW DATABASE
-#
-# The following built-in database engines are available:
-#  django.db.backends.postgresql          # Removed in Django 1.4
-#  django.db.backends.postgresql_psycopg2
-#  django.db.backends.mysql
-#  django.db.backends.sqlite3
-#  django.db.backends.oracle
-#
-# The default is 'django.db.backends.sqlite3' with file 'graphite.db'
-# located in STORAGE_DIR
-#
 #DATABASES = {
 #    'default': {
 #        'NAME': '/opt/graphite/storage/graphite.db',
@@ -70,7 +51,6 @@ LOG_DIR = '/var/log/graphite'
 #        'PORT': ''
 #    }
 #}
-#
 
 
 # Cluster Configuration #
