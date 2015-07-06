@@ -14,7 +14,8 @@ RUN pip install whisper \
     'django<1.6' \
     django-tagging \
     uwsgi \
-    graphite-web
+    graphite-web \
+    pytz
 
 #Supervisord config
 ADD ext/supervisord/supervisord.conf /etc/supervisord.conf
