@@ -12,7 +12,7 @@ RUN pip install whisper \
     'twisted<12.0' \
     carbon \
     'django<1.6' \
-    django-tagging \
+    'django-tagging==0.3.6' \
     uwsgi \
     graphite-web \
     pytz
